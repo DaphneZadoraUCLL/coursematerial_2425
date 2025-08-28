@@ -13,6 +13,13 @@ def decode4(word):
     word_length = len(word)//2
     return word[2:2 + word_length]
 
+def decode5(sentence):
+    words = sentence.split()
+    words[0] = decode1(words[0])
+    words[0] = decode2(words[0])
+    words[0] = words[0][::-1]
+    return " ".join(words)
+
 
 
 
