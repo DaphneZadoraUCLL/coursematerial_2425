@@ -7,11 +7,11 @@ while True:
     secret_word = input("Game master, please insert the secret word: ").lower()
     lives = int(input("Game master, how many lives does the player get: "))
 
-    # clear terminal (Windows)
     os.system("cls")
 
     display = ["_"] * len(secret_word)
     guessed_letters = []
+    game_stopped = False
 
     # main loop
     while lives > 0 and "_" in display:
@@ -24,6 +24,7 @@ while True:
     
         if guess == "stop":
             print("Game stopped by player.")
+            game_stopped = True
             break
 
         if guess in guessed_letters:
@@ -40,7 +41,18 @@ while True:
             print(f"Wrong! '{guess}' is not in the word.")
 
     # einde van het spel
-    if "_" not in display:
-        print(f"Congratulations! You guessed the word: {secret_word}")
-    elif lives == 0:
-        print(f"Game over! The word was: {secret_word}")
+    if not game_stopped:
+        if "_" not in display:
+            print(f"Congratulations! You guessed the word: {secret_word}")
+            wins += 1
+        elif lives == 0:
+            print(f"Game over! The word was: {secret_word}")
+            losses += 1
+
+        print(f"Score so far: {wins} wins, {losses} losses.")
+
+        again = input("Would you like to play again? (yes/no): ").lower()
+        if again != "yes":
+            break
+    else:
+        break
